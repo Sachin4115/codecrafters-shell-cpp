@@ -7,12 +7,17 @@ using namespace std;
 vector<string> commands={"echo","exit","type"};
 
 string get_path(string command){
+  // to get PATH environment variable
   string path_environment=getenv("PATH");
+  // store path environment variable in string stream
   stringstream ss(path_environment);
   string path;
   while(!ss.eof()){
+    // reads ss till : and stores in path
     getline(ss,path,':');
+    // adds /command in the path
     string absolute_path = path + '/' + command;
+    // checks if the path exists or not
     if(filesystem::exists(absolute_path)){
       return absolute_path;
     }
