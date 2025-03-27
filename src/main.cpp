@@ -1,15 +1,30 @@
 #include <iostream>
 #include <vector>
-#include <iostream>
+#include <sstream>
+#include <filesystem>
 using namespace std;
+
+vector<string> commands={"echo","exit","type"};
+
+string get_path(string command){
+  string path_environment=getenv("PATH");
+  stringstream ss(path_environment);
+  string path;
+  while(!ss.eof()){
+    getline(ss,path,':');
+    string absolute_path = path + '/' + command;
+    if(filesystem::exists(absolute_path)){
+      return absolute_path;
+    }
+  }
+  return "";
+}
 
 int main() {
   // Flush after every std::cout / std:cerr
-  cout << unitbuf;
-  cerr << unitbuf;
-
-  vector<string> commands={"echo","exit","type"};
   while(true){
+    cout << unitbuf;
+    cerr << unitbuf;
     cout << "$ ";
     string input;
     getline(std::cin, input);
@@ -25,7 +40,14 @@ int main() {
           break;
         }
       }
-      if(b) cout<<input.substr(5)<<": not found"<<endl;
+      if(b){
+        string path = get_path(match);
+        if(!path.empty()){
+          cout<<match<<" is "<<path<<endl;
+        }else{
+          cout<<input.substr(5)<<" not found"<<endl;
+        }
+      }
     }
     else cout << input << ": command not found" <<endl;
   }
