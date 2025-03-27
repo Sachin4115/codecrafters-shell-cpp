@@ -20,7 +20,7 @@ int main() {
       string match = input.substr(5);
       for(string command:commands){
         if(command==match){
-          cout<<match<<" is a shell builtin";
+          cout<<match<<" is a shell builtin"<<endl;
           b=0;
           break;
         }
