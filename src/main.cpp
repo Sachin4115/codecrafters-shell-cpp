@@ -1,15 +1,17 @@
 #include <iostream>
+using namespace std;
 
 int main() {
   // Flush after every std::cout / std:cerr
-  std::cout << std::unitbuf;
-  std::cerr << std::unitbuf;
+  cout << unitbuf;
+  cerr << unitbuf;
 
   while(true){
-    std::cout << "$ ";
-    std::string input;
-    std::getline(std::cin, input);
+    cout << "$ ";
+    string input;
+    getline(std::cin, input);
     if(input=="exit 0") break;
-    std::cout << input << ": command not found" <<std::endl;
+    else if(input.substr(0,4)=="echo") cout<<input.substr(5);
+    else cout << input << ": command not found" <<endl;
   }
 }
