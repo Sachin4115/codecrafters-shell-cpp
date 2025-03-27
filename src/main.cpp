@@ -17,7 +17,7 @@ int main() {
     else if(input.substr(0,4)=="echo") cout<<input.substr(5)<<endl;
     else if(input.substr(0,4)=="type"){
       bool b=1;
-      string match = input.substr(0,4);
+      string match = input.substr(5);
       for(string command:commands){
         if(command==match){
           cout<<match<<" is a shell command";
