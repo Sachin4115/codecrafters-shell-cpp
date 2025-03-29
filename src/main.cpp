@@ -102,17 +102,17 @@ int main() {
         }
       }
       if(command_vector[0]=="cat"){
-        string command_with_full_path = "";
-        for(int argument_number = 0; argument_number < command_vector.size(); argument_number++){
-          if(argument_number!=0)
-            command_with_full_path += " ";
-          string s="";
-          for(char c:command_vector[argument_number])
-            if(c!=' ')
-              s+=c;
-          command_with_full_path += s;
-        }
-        const char* command_ptr = command_with_full_path.c_str();
+        // string command_with_full_path = "";
+        // for(int argument_number = 0; argument_number < command_vector.size(); argument_number++){
+        //   if(argument_number!=0)
+        //     command_with_full_path += " ";
+        //   string s="";
+        //   for(char c:command_vector[argument_number])
+        //     if(c!=' ')
+        //       s+=c;
+        //   command_with_full_path += s;
+        // }
+        const char* command_ptr = input.c_str();
         system(command_ptr);
       }
       continue;
