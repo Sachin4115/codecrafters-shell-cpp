@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <filesystem>
+#include <unistd.h>
 using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
@@ -79,10 +80,21 @@ int main() {
       if(command_vector[0]=="cd"){
         if(command_vector.size()!=2) cout<<"Syntax of command CD is incorrect";
         else{
-          if(command_vector[1][0]=='/' && filesystem::exists(command_vector[1]))
-            WORKING_DIR = command_vector[1];
+          string arg = command_vector[1];
+          string new_dir = WORKING_DIR;
+          if(arg[0]=='/' && filesystem::exists(arg)){
+            new_dir = arg;
+            if(new_dir.size()==0) return 0;
+            if(chdir(new_dir.c_str()) == -1) cout<<"cd: "<< arg <<": No such file or directory"<<endl;
+          }else if(arg[0]=='.'){
+            string cwd = filesystem::current_path().string();
+            string dir = cwd + "/" + arg;
+            new_dir = filesystem::canonical(dir).string();
+            if(chdir(new_dir.c_str()) == -1) cout<<"cd: "<< arg <<": No such file or directory"<<endl;
+          }
           else
             cout<< command_vector[1] <<": No such file or directory"<<endl;
+          WORKING_DIR = new_dir;
         }
       }
       continue;
