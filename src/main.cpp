@@ -135,7 +135,7 @@ vector<string> parse_command_to_string_vector(string command)
       complete_argument="";
       i++;
       while(command[i]!='\''){
-        complete_argument+=c;
+        complete_argument+=command[i];
         i++;
       }
       arguments.push_back(complete_argument);
