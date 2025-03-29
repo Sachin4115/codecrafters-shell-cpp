@@ -119,7 +119,7 @@ FullCommandType command_to_full_command_type(string command)
     fct.type = Executable;
     fct.executable_path = executable_path;
   }else
-    fct.executable_path = Nonexistent;
+    fct.type = Nonexistent;
   return fct;
 }
 
@@ -147,7 +147,7 @@ string find_command_in_path(string command, string path)
 {
   for(const auto &entry : filesystem::directory_iterator(path)){
     if(entry.path() == (path + "/" + command))
-      return entry.path().string();
+      return entry.path();
   }
   return "";
 }
