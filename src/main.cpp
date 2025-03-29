@@ -5,6 +5,8 @@
 #include <filesystem>
 using namespace std;
 
+string WORKING_DIR = filesystem::current_path().string();
+
 enum CommandType{
   Builtin,
   Executable,
@@ -72,8 +74,16 @@ int main() {
         continue;
       }
       if(command_vector[0]=="pwd"){
-        string current_working_directory = filesystem::current_path().string();
-        cout<<current_working_directory<<endl;
+        cout<<WORKING_DIR<<endl;
+      }
+      if(command_vector[0]=="cd"){
+        if(command_vector.size()!=2) cout<<"Syntax of command CD is incorrect";
+        else{
+          if(command_vector[1][0]=='/' && filesystem::exists(command_vector[1]))
+            WORKING_DIR = command_vector[1];
+          else
+            cout<< command_vector[1] <<": No such file or directory"<<endl;
+        }
       }
       continue;
     }
@@ -112,7 +122,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type","pwd"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd","cd"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
