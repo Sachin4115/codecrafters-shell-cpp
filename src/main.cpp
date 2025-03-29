@@ -132,7 +132,7 @@ vector<string> parse_command_to_string_vector(string command)
     char c = command[i];
     if(c=='\''){
       i++;
-      while(command[i]!='\''){
+      while(command[i]!='\'' || (i<command.length()-1 && command[i+1] == '\'')){
         complete_argument+=command[i];
         i++;
       }
