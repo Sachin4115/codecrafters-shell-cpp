@@ -25,7 +25,7 @@ string find_command_executable_path(string command);
 string find_command_in_path(string command, string path);
 
 int main() {
-  // Flush after every std::cout / std:cerr
+  // Flush after every cout / std:cerr
   cout << unitbuf;
   cerr << unitbuf;
 
@@ -132,8 +132,9 @@ vector<string> parse_command_to_string_vector(string command)
     char c = command[i];
     if(c=='\''){
       i++;
-      while(command[i]!='\'' || (i<command.length()-1 && command[i+1] == '\'')){
-        complete_argument+=command[i];
+      while(command[i]!='\'' || (i<command.length()-1 && command[i+1] == '\'') || (command[i-1]=='\'')){
+        if(command[i]!='\'')
+          complete_argument+=command[i];
         i++;
       }
       arguments.push_back(complete_argument);
