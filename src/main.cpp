@@ -153,7 +153,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type","pwd","cd","cat"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd","cd"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
