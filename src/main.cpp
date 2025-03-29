@@ -79,8 +79,8 @@ int main() {
         command_with_full_path += " ";
         command_with_full_path += command_vector[argument_number];
       }
-      const char* command = command_with_full_path.c_str();
-      system(command);
+      const char* command_ptr = command_with_full_path.c_str();
+      system(command_ptr);
       continue;
     }
     cout<< input << ": command not found"<<endl;
@@ -110,9 +110,10 @@ FullCommandType command_to_full_command_type(string command)
 {
   vector<string> builtin_commands = {"exit","echo","type"};
   FullCommandType fct;
-  if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end())
+  if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
-
+    return fct;
+  }
   string executable_path = find_command_executable_path(command);
   if(executable_path != ""){
     fct.type = Executable;
