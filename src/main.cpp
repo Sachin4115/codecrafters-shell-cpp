@@ -91,6 +91,9 @@ int main() {
             string dir = cwd + "/" + arg;
             new_dir = filesystem::canonical(dir).string();
             if(chdir(new_dir.c_str()) == -1) cout<<"cd: "<< arg <<": No such file or directory"<<endl;
+          }else if(arg[0]=='~'){
+            new_dir = getenv("HOME");
+            WORKING_DIR = new_dir;
           }
           else
             cout<< command_vector[1] <<": No such file or directory"<<endl;
