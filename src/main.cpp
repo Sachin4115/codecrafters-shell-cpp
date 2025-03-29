@@ -74,7 +74,7 @@ int main() {
       continue;
     }
     if(fct.type == Executable){
-      string command_with_full_path = fct.executable_path;
+      string command_with_full_path = "";
       for(int argument_number = 1; argument_number < command_vector.size(); argument_number++){
         command_with_full_path += " ";
         command_with_full_path += command_vector[argument_number];
@@ -115,11 +115,12 @@ FullCommandType command_to_full_command_type(string command)
     return fct;
   }
   string executable_path = find_command_executable_path(command);
-  if(executable_path != ""){
+   if(executable_path != ""){
     fct.type = Executable;
     fct.executable_path = executable_path;
-  }else
-    fct.type = Nonexistent;
+    return fct;
+  }
+  fct.type = Nonexistent;
   return fct;
 }
 
@@ -146,10 +147,8 @@ string find_command_executable_path(string command)
 string find_command_in_path(string command, string path)
 {
   for(const auto &entry : filesystem::directory_iterator(path)){
-    if(entry.path() == (path + "/" + command))
-      return entry.path();
+    if(entry.path().string() == (path + "/" + command))
+      return entry.path().string();
   }
   return "";
 }
-
-
