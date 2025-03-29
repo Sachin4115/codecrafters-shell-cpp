@@ -74,7 +74,7 @@ int main() {
       continue;
     }
     if(fct.type == Executable){
-      string command_with_full_path = "";
+      string command_with_full_path = fct.executable_path;
       for(int argument_number = 1; argument_number < command_vector.size(); argument_number++){
         command_with_full_path += " ";
         command_with_full_path += command_vector[argument_number];
