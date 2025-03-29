@@ -42,6 +42,7 @@ int main() {
 
     if(command_vector[0]=="cat"){
       system(input.c_str());
+      continue;
     }
 
     FullCommandType fct = command_to_full_command_type(command_vector[0]);
