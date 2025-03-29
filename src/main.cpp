@@ -71,6 +71,10 @@ int main() {
         }
         continue;
       }
+      if(command_vector[0]=="pwd"){
+        string current_working_directory = filesystem::current_path().string();
+        cout<<current_working_directory<<endl;
+      }
       continue;
     }
     if(fct.type == Executable){
@@ -108,7 +112,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
