@@ -93,12 +93,19 @@ int main() {
             if(chdir(new_dir.c_str()) == -1) cout<<"cd: "<< arg <<": No such file or directory"<<endl;
           }else if(arg[0]=='~'){
             new_dir = getenv("HOME");
+            chdir(new_dir.c_str());
             WORKING_DIR = new_dir;
           }
           else
             cout<< command_vector[1] <<": No such file or directory"<<endl;
           WORKING_DIR = new_dir;
         }
+      }
+      if(command_vector[0]=="cat"){
+        string complete_cat_command = "";
+        for(string s:command_vector) complete_cat_command+=s;
+        const char* command_ptr = complete_cat_command.c_str();
+        system(command_ptr);
       }
       continue;
     }
@@ -121,8 +128,20 @@ vector<string> parse_command_to_string_vector(string command)
   vector<string> arguments;
   string complete_argument = "";
 
-  for(char c:command){
-    if(c==' '){
+  for(int i = 0; i<command.length();i++){
+    char c = command[i];
+    if(c=='\''){
+      arguments.push_back(complete_argument);
+      complete_argument="";
+      i++;
+      while(command[i]!='\''){
+        complete_argument+=c;
+        i++;
+      }
+      arguments.push_back(complete_argument);
+      complete_argument="";
+    }
+    else if(c==' '){
       arguments.push_back(complete_argument);
       complete_argument="";
     }else{
@@ -137,7 +156,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type","pwd","cd"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd","cd","cat"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
