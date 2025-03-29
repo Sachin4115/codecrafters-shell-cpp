@@ -112,10 +112,11 @@ int main() {
         //       s+=c;
         //   command_with_full_path += s;
         // }
-        for(int i=1;i<command_vector.size();i++){
-          const char* command_ptr = command_vector[i].c_str();
-          system(command_ptr);
-        }
+        // for(int i=1;i<command_vector.size();i++){
+        //   system(command_vector[i].c_str());
+        // }
+        const char* command_ptr = input.c_str();
+        system(command_ptr);
       }
       continue;
     }
