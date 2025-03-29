@@ -140,7 +140,8 @@ vector<string> parse_command_to_string_vector(string command)
       complete_argument="";
     }
     else if(c==' '){
-      arguments.push_back(complete_argument);
+      if(complete_argument!="")
+        arguments.push_back(complete_argument);
       complete_argument="";
     }else{
       complete_argument+=c;
