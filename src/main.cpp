@@ -102,6 +102,9 @@ int main() {
           WORKING_DIR = new_dir;
         }
       }
+      if(command_vector[0]=="cat"){
+        system(input.c_str());
+      }
       continue;
     }
     if(fct.type == Executable){
