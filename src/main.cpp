@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include <algorithm>
 #include <cstdlib>
 #include <filesystem>
@@ -37,7 +36,7 @@ int main() {
 
     if(command_vector.size()==0) continue;
 
-    FullCommandType fct = command_to_full_command_type(input);
+    FullCommandType fct = command_to_full_command_type(command_vector[0]);
 
     if(fct.type == Builtin){
       if(command_vector[0]=="exit"){
