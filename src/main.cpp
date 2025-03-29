@@ -112,6 +112,7 @@ int main() {
         //       s+=c;
         //   command_with_full_path += s;
         // }
+        for(int i=0;i<input.length();i++) if(input[i]=='\'') input[i]='\"';
         const char* command_ptr = input.c_str();
         system(command_ptr);
       }
