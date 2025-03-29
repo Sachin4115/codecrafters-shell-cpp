@@ -102,10 +102,7 @@ int main() {
         }
       }
       if(command_vector[0]=="cat"){
-        string complete_cat_command = "";
-        for(string s:command_vector) complete_cat_command+=s;
-        const char* command_ptr = complete_cat_command.c_str();
-        system(command_ptr);
+        system(input.c_str());
       }
       continue;
     }
