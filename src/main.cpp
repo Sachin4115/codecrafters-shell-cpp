@@ -7,6 +7,7 @@
 using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
+string path_environment=getenv("PATH");
 
 enum CommandType{
   Builtin,
@@ -101,23 +102,6 @@ int main() {
           WORKING_DIR = new_dir;
         }
       }
-      if(command_vector[0]=="cat"){
-        // string command_with_full_path = "";
-        // for(int argument_number = 0; argument_number < command_vector.size(); argument_number++){
-        //   if(argument_number!=0)
-        //     command_with_full_path += " ";
-        //   string s="";
-        //   for(char c:command_vector[argument_number])
-        //     if(c!=' ')
-        //       s+=c;
-        //   command_with_full_path += s;
-        // }
-        // for(int i=1;i<command_vector.size();i++){
-        //   system(command_vector[i].c_str());
-        // }
-        const char* command_ptr = input.c_str();
-        system(command_ptr);
-      }
       continue;
     }
     if(fct.type == Executable){
@@ -167,7 +151,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type","pwd","cd"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd","cd","cat"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
@@ -185,7 +169,6 @@ FullCommandType command_to_full_command_type(string command)
 
 string find_command_executable_path(string command)
 {
-  string path_environment=getenv("PATH");
   if(path_environment=="") return "";
   string path_accumulate = "";
   for(char ch : path_environment){
