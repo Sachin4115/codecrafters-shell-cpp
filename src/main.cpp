@@ -40,6 +40,10 @@ int main() {
 
     if(command_vector.size()==0) continue;
 
+    if(command_vector[0]=="cat"){
+      system(input.c_str());
+    }
+
     FullCommandType fct = command_to_full_command_type(command_vector[0]);
 
     if(fct.type == Builtin){
@@ -102,9 +106,6 @@ int main() {
           WORKING_DIR = new_dir;
         }
       }
-      if(command_vector[0]=="cat"){
-        system(input.c_str());
-      }
       continue;
     }
     if(fct.type == Executable){
@@ -154,7 +155,7 @@ vector<string> parse_command_to_string_vector(string command)
 
 FullCommandType command_to_full_command_type(string command)
 {
-  vector<string> builtin_commands = {"exit","echo","type","pwd","cd","cat"};
+  vector<string> builtin_commands = {"exit","echo","type","pwd","cd"};
   FullCommandType fct;
   if(find(builtin_commands.begin(),builtin_commands.end(),command)!=builtin_commands.end()){
     fct.type = Builtin;
