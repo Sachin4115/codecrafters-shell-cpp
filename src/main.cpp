@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <fstream>
 #include <unistd.h>
+#include <conio.h>
 using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
@@ -302,16 +303,19 @@ void handleTabPress(string &input)
 void readInputWithTab(string &input)
 {
   // enableRawMode();
+  string s;
   char c;
+  int asciiVal;
   while(true){
-    c=getchar();
-    if(c=='\n'){
+    c=getch();
+    asciiVal = c;
+    if(asciiVal == 13){
       cout<<endl;
       break;
-    }else if(c=='\t'){
-      handleTabPress(input);
+    }else if(asciiVal == 9){
+      handleTabPress(s);
     }else{
-      input+=c;
+      s+=c;
       cout<<c;
     }
   }
