@@ -343,8 +343,8 @@ char handleTabPress(string &input)
     input = matches.front() + ' ';
     cout << input;
   }
-  // else{
-  //   cout << '\a';
+  else{
+    cout << '\a';
   //   enableRawMode();
   //   char c;
   //   c = getchar();
@@ -362,7 +362,7 @@ char handleTabPress(string &input)
   //   cout<<endl;
   //   cout<<"$ ";
   //   cout<<input;
-  // }
+  }
   return '$';
 }
 
