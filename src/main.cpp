@@ -140,6 +140,16 @@ vector<string> parse_command_to_string_vector(string command)
       arguments.push_back(complete_argument);
       complete_argument="";
     }
+    else if(c=='\''){
+      i++;
+      while(command[i]!='\'' || (i<command.length()-1 && command[i+1] == '\'') || (command[i-1]=='\'')){
+        if(command[i]!='\'')
+          complete_argument+=command[i];
+        i++;
+      }
+      arguments.push_back(complete_argument);
+      complete_argument="";
+    }
     else if(c==' '){
       if(complete_argument!="")
         arguments.push_back(complete_argument);
