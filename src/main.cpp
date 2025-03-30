@@ -44,8 +44,9 @@ int main() {
       system(input.c_str());
       continue;
     }else if(input.front()=='\'' || input.front()=='"'){
-      string command_with_full_path = "";
-      for(int argument_number = 0; argument_number < command_vector.size(); argument_number++){
+      char ch = input.front();
+      string command_with_full_path = ch+command_vector[0]+ch;
+      for(int argument_number = 1; argument_number < command_vector.size(); argument_number++){
         command_with_full_path += " ";
         command_with_full_path += command_vector[argument_number];
       }
