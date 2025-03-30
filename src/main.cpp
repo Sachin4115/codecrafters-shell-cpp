@@ -46,7 +46,7 @@ int main() {
     bool redirect = false;
     int k=0;
 
-    for(int i=0;i<command_vector.size();i++){
+    for(int i=1;i<command_vector.size();i++){
       if(command_vector[i] == ">" || command_vector[i] == "1>"){
         if(i+1<command_vector.size()){
           redirect=true;
@@ -148,8 +148,9 @@ int main() {
       continue;
     }
     if(redirect){
-      ofstream fileStream(redirectFile,ios::out | ios::trunc);
+      ofstream fileStream(redirectFile);
       fileStream<<output;
+      fileStream.close();
     }else if(output.size()!=0){
       cout<<output;
     }else
