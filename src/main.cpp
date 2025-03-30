@@ -350,12 +350,12 @@ char handleTabPress(string &input)
     disableRawMode();
     if(c!='\t') return c;
     cout<<endl;
-    set<string>res(matches.begin(),matches.end());
+    // set<string>res(matches.begin(),matches.end());
     // for(const auto& match:matches){
     //   res.insert(match);
     // }
     // for(string rs:res) cout<<rs<<"  ";
-    for(const auto& match:res){
+    for(const auto& match:matches){
       cout<<match<<"  ";
     }
     cout<<endl;
