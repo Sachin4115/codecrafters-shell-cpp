@@ -349,12 +349,9 @@ char handleTabPress(string &input)
     disableRawMode();
     if(c!='\t') return c;
     cout<<endl;
-    vector<string>matchedCommands;
     for(const auto& match:matches){
-      matchedCommands.push_back(match);
+      cout<<match<<"  ";
     }
-    sort(matchedCommands.begin(),matchedCommands.end());
-    for(string m : matchedCommands) cout<<m<<"  ";
     cout<<endl;
     cout<<"$ ";
     cout<<input;
