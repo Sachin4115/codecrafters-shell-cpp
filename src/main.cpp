@@ -44,6 +44,7 @@ int main() {
     string output;
     string redirectFile;
     bool redirect = false;
+    bool error = false;
     int k=0;
 
     for(int i=1;i<command_vector.size();i++){
@@ -56,6 +57,8 @@ int main() {
         }
       }else if(command_vector[i] == "2>"){
         k=2;
+        error=true;
+        redirectFile = command_vector[i+1];
         break;
       }
     }
@@ -93,7 +96,11 @@ int main() {
           ofstream fileStream(redirectFile);
           fileStream<<output;
           fileStream.close();
-        }else if(output.size()!=0){
+        }else if(error){
+          ofstream fileStream(redirectFile);
+          fileStream<<"";
+          fileStream.close();
+        }else {
           cout<<output;
         }
         continue;
