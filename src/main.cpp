@@ -50,7 +50,6 @@ int main() {
         if(i+1<command_vector.size()){
           redirect=true;
           redirectFile = command_vector[i+1];
-          cout<<redirectFile<<"__";
           break;
         }
       }
@@ -149,7 +148,6 @@ int main() {
       ofstream fileStream(redirectFile,ios::out | ios::trunc);
       fileStream<<output;
     }else if(output.size()!=0){
-      cout<<redirectFile<<endl;
       cout<<output;
     }else
       cout<< input << ": command not found"<<endl;
