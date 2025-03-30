@@ -43,21 +43,30 @@ int main() {
 
     string output;
     string redirectFile;
-    bool redirect = false;
-    bool error = false;
+    int flag = 0;
     int k=0;
 
     for(int i=1;i<command_vector.size();i++){
       if(command_vector[i] == ">" || command_vector[i] == "1>"){
         if(i+1<command_vector.size()){
-          redirect=true;
+          flag=1;
           redirectFile = command_vector[i+1];
           k=2;
           break;
         }
       }else if(command_vector[i] == "2>"){
         k=2;
-        error=true;
+        flag=2;
+        redirectFile = command_vector[i+1];
+        break;
+      }else if(command_vector[i] == "1>>"){
+        k=2;
+        flag=3;
+        redirectFile = command_vector[i+1];
+        break;
+      }else if(command_vector[i] == "2>>"){
+        k=2;
+        flag=4;
         redirectFile = command_vector[i+1];
         break;
       }
@@ -92,12 +101,21 @@ int main() {
           output+=command_vector[i];
         }
         output+="\n";
-        if(redirect){
+        if(flag==1){
           ofstream fileStream(redirectFile);
           fileStream<<output;
           fileStream.close();
-        }else if(error){
+        }else if(flag==2){
           ofstream fileStream(redirectFile);
+          fileStream<<"";
+          fileStream.close();
+          cout<<output;
+        }else if(flag==3){
+          ofstream fileStream(redirectFile,ios_base::app);
+          fileStream<<output;
+          fileStream.close();
+        }else if(flag==4){
+          ofstream fileStream(redirectFile,ios_base::app);
           fileStream<<"";
           fileStream.close();
           cout<<output;
