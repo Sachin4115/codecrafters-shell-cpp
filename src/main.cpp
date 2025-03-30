@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
@@ -10,6 +11,7 @@ using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
 string path_environment=getenv("PATH");
+unordered_set<string> commands;
 
 enum CommandType{
   Builtin,
@@ -28,6 +30,11 @@ string find_command_executable_path(string command);
 string find_command_in_path(string command, string path);
 void handleTabPress(string &input);
 void readInputWithTab(string &input);
+unordered_set<string> getExternalCommands();
+
+builtin_commands = {"exit","echo","type"};
+commands =  getExternalCommands();
+commands.insert(builtin_commands.begin(),builtin_commands.end());
 
 int main() {
   // Flush after every cout / std:cerr
@@ -302,19 +309,43 @@ void disableRawMode() {
   tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
+unordered_set<string> getExternalCommands()
+{
+  istringstream iss(path_environment);
+  string dir;
+  while (getline(iss, dir, ':')) {
+    for (const auto& entry : filesystem::directory_iterator(dir)) {
+      if (entry.is_regular_file() && is_executable(entry.path().string())) {
+          commands.insert(entry.path().filename().string());
+      }
+    }
+  }
+  return commands;
+}
+
 void handleTabPress(string &input)
 {
-  if(input=="ech"){
-    input = "echo ";
-    cout<<"o ";
-  }else if(input == "exi"){
-    input = "exit ";
-    cout<<"t ";
-  }else if(input == "typ"){
-    input = "type ";
-    cout<<"t ";
+  auto matches = commands | views::filter([&input](const string& cmd) {
+    return cmd.starts_with(input);
+  });
+  if (matches.empty()) {
+    cout << '\a';
+  }
+  if (std::ranges::distance(matches) == 1) {
+    while (!input.empty()) {
+      cout << "\b \b";
+      input.pop_back();
+    }
+    input = matches.front() + ' ';
+    cout << input;
   }else{
-    cout<<"\a";
+    cout<<endl;
+    for(const auto& match:matches){
+      cout<<match<<" ";
+    }
+    cout<<endl;
+    cout<<"$ ";
+    cout<<input;
   }
 }
 
@@ -341,3 +372,4 @@ void readInputWithTab(string &input)
   }
   disableRawMode();
 }
+
