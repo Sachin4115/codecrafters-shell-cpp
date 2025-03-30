@@ -47,7 +47,7 @@ int main() {
     int k=0;
 
     for(int i=1;i<command_vector.size();i++){
-      if(command_vector[i] == ">" || command_vector[i] == "1>"){
+      if(command_vector[i] == ">" || command_vector[i] == "1>" || command_vector[i] == "2>"){
         if(i+1<command_vector.size()){
           redirect=true;
           redirectFile = command_vector[i+1];
