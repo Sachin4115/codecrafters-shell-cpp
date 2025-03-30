@@ -29,7 +29,7 @@ vector<string> parse_command_to_string_vector(string command);
 FullCommandType command_to_full_command_type(string command);
 string find_command_executable_path(string command);
 string find_command_in_path(string command, string path);
-void handleTabPress(string &input);
+char handleTabPress(string &input);
 void readInputWithTab(string &input);
 unordered_set<string> getExternalCommands();
 
@@ -363,7 +363,7 @@ char handleTabPress(string &input)
 void helpReadInputWithTab(string &input,char c){
   if (c == '\n') {
     cout << endl;
-    break;
+    return;
   } else if (c == '\t') {
     char r = handleTabPress(input);
     if(r=='$') return;
