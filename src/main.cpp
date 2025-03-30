@@ -326,7 +326,7 @@ unordered_set<string> getExternalCommands()
   return commands;
 }
 
-void handleTabPress(string &input)
+char handleTabPress(string &input)
 {
   auto matches = commands | views::filter([&input](const string& cmd) {
     return cmd.starts_with(input);
@@ -342,6 +342,12 @@ void handleTabPress(string &input)
     input = matches.front() + ' ';
     cout << input;
   }else{
+    cout << '\a';
+    enableRawMode();
+    char c;
+    c = getchar();
+    disableRawMode();
+    if(c!='\t') return c;
     cout<<endl;
     for(const auto& match:matches){
       cout<<match<<"  ";
@@ -349,6 +355,27 @@ void handleTabPress(string &input)
     cout<<endl;
     cout<<"$ ";
     cout<<input;
+  }
+  return '$';
+}
+
+
+void helpReadInputWithTab(string &input,char c){
+  if (c == '\n') {
+    cout << endl;
+    break;
+  } else if (c == '\t') {
+    char r = handleTabPress(input);
+    if(r=='$') return;
+    helpReadInputWithTab(input,r);
+  } else if (c == 127) {
+    if (!input.empty()) {
+      input.pop_back();
+      cout << "\b \b";
+    }
+  } else {
+    input += c;
+    cout << c;
   }
 }
 
@@ -358,20 +385,7 @@ void readInputWithTab(string &input)
   char c;
   while (true) {
     c = getchar();
-    if (c == '\n') {
-      cout << endl;
-      break;
-    } else if (c == '\t') {
-      handleTabPress(input);
-    } else if (c == 127) {
-      if (!input.empty()) {
-        input.pop_back();
-        cout << "\b \b";
-      }
-    } else {
-      input += c;
-      cout << c;
-    }
+    helpReadInputWithTab(input,c);
   }
   disableRawMode();
 }
