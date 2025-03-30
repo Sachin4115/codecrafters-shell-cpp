@@ -342,26 +342,27 @@ char handleTabPress(string &input)
     }
     input = matches.front() + ' ';
     cout << input;
-  }else{
-    cout << '\a';
-    enableRawMode();
-    char c;
-    c = getchar();
-    disableRawMode();
-    if(c!='\t') return c;
-    cout<<endl;
-    // set<string>res(matches.begin(),matches.end());
-    // for(const auto& match:matches){
-    //   res.insert(match);
-    // }
-    // for(string rs:res) cout<<rs<<"  ";
-    for(const auto& match:matches){
-      cout<<match<<"  ";
-    }
-    cout<<endl;
-    cout<<"$ ";
-    cout<<input;
   }
+  // else{
+  //   cout << '\a';
+  //   enableRawMode();
+  //   char c;
+  //   c = getchar();
+  //   disableRawMode();
+  //   if(c!='\t') return c;
+  //   cout<<endl;
+  //   // set<string>res(matches.begin(),matches.end());
+  //   // for(const auto& match:matches){
+  //   //   res.insert(match);
+  //   // }
+  //   // for(string rs:res) cout<<rs<<"  ";
+  //   for(const auto& match:matches){
+  //     cout<<match<<"  ";
+  //   }
+  //   cout<<endl;
+  //   cout<<"$ ";
+  //   cout<<input;
+  // }
   return '$';
 }
 
