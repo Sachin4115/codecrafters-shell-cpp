@@ -50,6 +50,7 @@ int main() {
         if(i+1<command_vector.size()){
           redirect=true;
           redirectFile = command_vector[i+1];
+          cout<<redirectFile<<"__";
           break;
         }
       }
