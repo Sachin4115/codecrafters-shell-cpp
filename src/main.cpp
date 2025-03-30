@@ -100,6 +100,7 @@ int main() {
           ofstream fileStream(redirectFile);
           fileStream<<"";
           fileStream.close();
+          cout<<output;
         }else {
           cout<<output;
         }
