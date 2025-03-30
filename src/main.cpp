@@ -130,10 +130,10 @@ vector<string> parse_command_to_string_vector(string command)
 
   for(int i = 0; i<command.length();i++){
     char c = command[i];
-    if(c=='\''){
+    if(c=='\"'){
       i++;
-      while(command[i]!='\'' || (i<command.length()-1 && command[i+1] == '\'') || (command[i-1]=='\'')){
-        if(command[i]!='\'')
+      while(command[i]!='\"' || (i<command.length()-1 && command[i+1] == '\"') || (command[i-1]=='\"')){
+        if(command[i]!='\"')
           complete_argument+=command[i];
         i++;
       }
