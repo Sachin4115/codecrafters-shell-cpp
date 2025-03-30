@@ -310,6 +310,9 @@ void handleTabPress(string &input)
   }else if(input == "exi"){
     input = "exit ";
     cout<<"t ";
+  }else if(input == "typ"){
+    input = "type ";
+    cout<<"t ";
   }
 }
 
