@@ -86,6 +86,13 @@ int main() {
           output+=command_vector[i];
         }
         output+="\n";
+        if(redirect){
+          ofstream fileStream(redirectFile);
+          fileStream<<output;
+          fileStream.close();
+        }else if(output.size()!=0){
+          cout<<output;
+        }
         continue;
       }
       if(command_vector[0]=="type"){
@@ -95,13 +102,13 @@ int main() {
 
         switch (command_type.type){
           case Builtin:
-            output+= command_name + " is a shell builtin" + "\n";
+            cout<< command_name + " is a shell builtin" + "\n";
             break;
           case Executable:
-            output+= command_name + " is " + command_type.executable_path + "\n";
+            cout<< command_name + " is " + command_type.executable_path + "\n";
             break;
           case Nonexistent:
-            output+= command_name + " not found"+"\n";
+            cout<< command_name + " not found"+"\n";
             break;
           default:
             break;
@@ -109,7 +116,7 @@ int main() {
         continue;
       }
       if(command_vector[0]=="pwd"){
-        output+=WORKING_DIR + "\n";
+        cout<<WORKING_DIR + "\n";
       }
       if(command_vector[0]=="cd"){
         if(command_vector.size()!=2) cout<<"Syntax of command CD is incorrect";
@@ -147,13 +154,6 @@ int main() {
       system(command_ptr);
       continue;
     }
-    if(redirect){
-      ofstream fileStream(redirectFile);
-      fileStream<<output;
-      fileStream.close();
-    }else if(output.size()!=0){
-      cout<<output;
-    }else
       cout<< input << ": command not found"<<endl;
   }
 }
