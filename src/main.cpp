@@ -345,12 +345,12 @@ char handleTabPress(string &input)
   }
   else{
     cout << '\a';
-  //   enableRawMode();
-  //   char c;
-  //   c = getchar();
-  //   disableRawMode();
-  //   if(c!='\t') return c;
-  //   cout<<endl;
+    enableRawMode();
+    char c;
+    c = getchar();
+    disableRawMode();
+    if(c!='\t') return c;
+    cout<<endl;
   //   // set<string>res(matches.begin(),matches.end());
   //   // for(const auto& match:matches){
   //   //   res.insert(match);
@@ -359,9 +359,9 @@ char handleTabPress(string &input)
   //   for(const auto& match:matches){
   //     cout<<match<<"  ";
   //   }
-  //   cout<<endl;
-  //   cout<<"$ ";
-  //   cout<<input;
+    cout<<endl;
+    cout<<"$ ";
+    cout<<input;
   }
   return '$';
 }
