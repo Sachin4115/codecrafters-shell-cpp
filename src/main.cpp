@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_set>
+#include <set>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
@@ -349,12 +350,11 @@ char handleTabPress(string &input)
     disableRawMode();
     if(c!='\t') return c;
     cout<<endl;
-    vector<string>matchedCommands;
+    set<string>res;
     for(const auto& match:matches){
-      matchedCommands.push_back(match);
+      res.insert(match);
     }
-    sort(matchedCommands.begin(),matchedCommands.end());
-    for(string m : matchedCommands) cout<<m<<"  ";
+    for(string rs:res) cout<<rs<<"  ";
     cout<<endl;
     cout<<"$ ";
     cout<<input;
