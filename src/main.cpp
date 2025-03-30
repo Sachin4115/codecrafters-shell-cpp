@@ -329,7 +329,7 @@ unordered_set<string> getExternalCommands()
 
 char handleTabPress(string &input)
 {
-  auto matches = commands | views::filter([&input](const string& cmd) {
+  set<string> matches = commands | views::filter([&input](const string& cmd) {
     return cmd.starts_with(input);
   });
   if (matches.empty()) {
