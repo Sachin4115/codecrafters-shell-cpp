@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
 #include <unistd.h>
 using namespace std;
 
@@ -40,6 +41,20 @@ int main() {
 
     if(command_vector.size()==0) continue;
 
+    string output;
+    string redirectFile;
+    bool redirect = false;
+
+    for(int i=0;i<command_vector.size();i++){
+      if(command_vector[i] == ">" || command_vector[i] == "1>"){
+        if(i+1<command_vector.size()){
+          redirect=true;
+          redirectFile = command_vector[i+1];
+          break;
+        }
+      }
+    }
+
     if(command_vector[0]=="cat"){
       system(input.c_str());
       continue;
@@ -64,10 +79,10 @@ int main() {
       }
       if(command_vector[0]=="echo"){
         for(int i=1;i<command_vector.size();i++){
-          if(i!=1) cout<<" ";
-          cout<<command_vector[i];
+          if(i!=1) output+=" ";
+          output+=command_vector[i];
         }
-        cout<<endl;
+        output+="\n";
         continue;
       }
       if(command_vector[0]=="type"){
@@ -77,13 +92,13 @@ int main() {
 
         switch (command_type.type){
           case Builtin:
-            cout<< command_name << " is a shell builtin"<<endl;
+            output+= command_name + " is a shell builtin" + "\n";
             break;
           case Executable:
-            cout<< command_name << " is " << command_type.executable_path << endl;
+            output+= command_name + " is " + command_type.executable_path + "\n";
             break;
           case Nonexistent:
-            cout<< command_name << " not found"<<endl;
+            output+= command_name + " not found"+"\n";
             break;
           default:
             break;
@@ -91,7 +106,7 @@ int main() {
         continue;
       }
       if(command_vector[0]=="pwd"){
-        cout<<WORKING_DIR<<endl;
+        output+=WORKING_DIR + "\n";
       }
       if(command_vector[0]=="cd"){
         if(command_vector.size()!=2) cout<<"Syntax of command CD is incorrect";
@@ -129,7 +144,13 @@ int main() {
       system(command_ptr);
       continue;
     }
-    cout<< input << ": command not found"<<endl;
+    if(redirect){
+      ofstream fileStream(redirectFile,ios::out | ios::trunc);
+      fileStream<<output;
+    }else if(output.size()!=0){
+      cout<<output;
+    }else
+      cout<< input << ": command not found"<<endl;
   }
 }
 
