@@ -25,6 +25,8 @@ vector<string> parse_command_to_string_vector(string command);
 FullCommandType command_to_full_command_type(string command);
 string find_command_executable_path(string command);
 string find_command_in_path(string command, string path);
+void handleTabPress(string &input);
+void readInputWithTab(string &input);
 
 int main() {
   // Flush after every cout / std:cerr
@@ -35,7 +37,8 @@ int main() {
     cout << "$ ";
 
     string input;
-    getline(std::cin, input);
+    // getline(std::cin, input);
+    readInputWithTab(input);
 
     vector<string> command_vector = parse_command_to_string_vector(input);
 
@@ -283,4 +286,31 @@ string find_command_in_path(string command, string path)
       return entry.path().string();
   }
   return "";
+}
+
+void handleTabPress(string &input)
+{
+  if(input=="ech"){
+    input = "echo ";
+    cout<<"o ";
+  }else if(input == "exi"){
+    input = "exit ";
+    cout<<"t ";
+  }
+}
+
+void readInputWithTab(string &input)
+{
+  char c;
+  while(true){
+    c=getchar();
+    if(c=='\n'){
+      cout<<endl;
+      break;
+    }else if(c=='\t'){
+      handleTabPress(input);
+    }else{
+      input+=c;
+    }
+  }
 }
