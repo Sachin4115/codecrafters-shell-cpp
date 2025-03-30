@@ -45,15 +45,6 @@ int main() {
     string redirectFile;
     bool redirect = false;
 
-    for(int i=0;i<command_vector.size();i++){
-      if(command_vector[i] == ">" || command_vector[i] == "1>"){
-        if(i+1<command_vector.size()){
-          redirect=true;
-          redirectFile = command_vector[i+1];
-          break;
-        }
-      }
-    }
 
     if(command_vector[0]=="cat"){
       system(input.c_str());
@@ -70,6 +61,18 @@ int main() {
       continue;
     }
 
+    for(int i=0;i<command_vector.size();i++){
+      if(command_vector[i] == ">" || command_vector[i] == "1>"){
+        if(i+1<command_vector.size()){
+          redirect=true;
+          redirectFile = command_vector[i+1];
+          command_vector.pop_back();
+          command_vector.pop_back();
+          break;
+        }
+      }
+    }
+    
     FullCommandType fct = command_to_full_command_type(command_vector[0]);
 
     if(fct.type == Builtin){
