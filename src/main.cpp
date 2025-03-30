@@ -147,6 +147,8 @@ vector<string> parse_command_to_string_vector(string command)
           if(command[i+1]=='\\' || command[i+1]=='\"'){
             complete_argument+=command[i+1];
             i++;
+          }else{
+            complete_argument+=command[i];
           }
         }
         else if(command[i]!='\"')
