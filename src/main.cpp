@@ -318,7 +318,7 @@ unordered_set<string> getExternalCommands()
   string dir;
   while (getline(iss, dir, ':')) {
     for (const auto& entry : filesystem::directory_iterator(dir)) {
-      if (entry.is_regular_file() && is_executable(entry.path().string())) {
+      if (entry.is_regular_file()) {
           commands.insert(entry.path().filename().string());
       }
     }
@@ -334,7 +334,7 @@ void handleTabPress(string &input)
   if (matches.empty()) {
     cout << '\a';
   }
-  if (std::ranges::distance(matches) == 1) {
+  if (ranges::distance(matches) == 1) {
     while (!input.empty()) {
       cout << "\b \b";
       input.pop_back();
@@ -344,7 +344,7 @@ void handleTabPress(string &input)
   }else{
     cout<<endl;
     for(const auto& match:matches){
-      cout<<match<<" ";
+      cout<<match<<"  ";
     }
     cout<<endl;
     cout<<"$ ";
