@@ -301,6 +301,7 @@ void handleTabPress(string &input)
 
 void readInputWithTab(string &input)
 {
+  // enableRawMode();
   char c;
   while(true){
     c=getchar();
@@ -311,6 +312,8 @@ void readInputWithTab(string &input)
       handleTabPress(input);
     }else{
       input+=c;
+      cout<<c;
     }
   }
+  // disableRawMode();
 }
