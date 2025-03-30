@@ -148,6 +148,7 @@ int main() {
       ofstream fileStream(redirectFile,ios::out | ios::trunc);
       fileStream<<output;
     }else if(output.size()!=0){
+      cout<<redirectFile<<endl;
       cout<<output;
     }else
       cout<< input << ": command not found"<<endl;
