@@ -1,17 +1,18 @@
 #include <iostream>
-#include <unordered_set>
+#include <set>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <unistd.h>
+#include <ranges>
 #include <termios.h>
 using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
 string path_environment=getenv("PATH");
-unordered_set<string> commands;
+
 
 enum CommandType{
   Builtin,
@@ -32,8 +33,8 @@ void handleTabPress(string &input);
 void readInputWithTab(string &input);
 unordered_set<string> getExternalCommands();
 
-builtin_commands = {"exit","echo","type"};
-commands =  getExternalCommands();
+vector<string> builtin_commands = {"exit","echo","type"};
+unordered_set<string> commands =  getExternalCommands();
 commands.insert(builtin_commands.begin(),builtin_commands.end());
 
 int main() {
