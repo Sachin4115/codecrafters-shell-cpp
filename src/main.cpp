@@ -43,6 +43,15 @@ int main() {
     if(command_vector[0]=="cat"){
       system(input.c_str());
       continue;
+    }else if(input.front()=='\'' || input.front()=='"'){
+      string command_with_full_path = "";
+      for(int argument_number = 0; argument_number < command_vector.size(); argument_number++){
+        command_with_full_path += " ";
+        command_with_full_path += command_vector[argument_number];
+      }
+      const char* command_ptr = command_with_full_path.c_str();
+      system(command_ptr);
+      continue;
     }
 
     FullCommandType fct = command_to_full_command_type(command_vector[0]);
