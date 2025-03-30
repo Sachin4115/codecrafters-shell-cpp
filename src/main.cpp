@@ -56,6 +56,7 @@ int main() {
         }
       }else if(command_vector[i] == "2>"){
         k=2;
+        break;
       }
     }
 
