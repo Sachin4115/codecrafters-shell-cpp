@@ -150,7 +150,10 @@ vector<string> parse_command_to_string_vector(string command)
       arguments.push_back(complete_argument);
       complete_argument="";
     }
-    else if(c==' '){
+    else if(c=='\\'){
+      i++;
+      complete_argument+=command[i];
+    }else if(c==' '){
       if(complete_argument!="")
         arguments.push_back(complete_argument);
       complete_argument="";
