@@ -329,7 +329,7 @@ unordered_set<string> getExternalCommands()
 
 char handleTabPress(string &input)
 {
-  set<string> matches = commands | views::filter([&input](const string& cmd) {
+  auto matches = commands | views::filter([&input](const string& cmd) {
     return cmd.starts_with(input);
   });
   if (matches.empty()) {
@@ -350,12 +350,12 @@ char handleTabPress(string &input)
     disableRawMode();
     if(c!='\t') return c;
     cout<<endl;
-    // set<string>res;
+    set<string>res(matches.begin(),matches.end());
     // for(const auto& match:matches){
     //   res.insert(match);
     // }
     // for(string rs:res) cout<<rs<<"  ";
-    for(const auto& match:matches){
+    for(const auto& match:res){
       cout<<match<<"  ";
     }
     cout<<endl;
