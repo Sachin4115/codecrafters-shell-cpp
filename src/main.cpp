@@ -134,21 +134,17 @@ vector<string> parse_command_to_string_vector(string command)
       i++;
       while(command[i]!='\"' || (i<command.length()-1 && command[i+1] == '\"') || (command[i-1]=='\"')){
         if(command[i]=='\\' && i<command.length()-1 ){
-          if(command[i+1]=='\\' || command[i+1]=='$' || command[i+1]=='\"'){
+          if(command[i+1]=='\\' || command[i+1]=='\"'){
             complete_argument+=command[i+1];
             i++;
-          }else if(command[i+1]=='\\' && i+2<command.length() && command[i+2]=='n'){
-            complete_argument+=command[i+1];
-            complete_argument+=command[i+2];
-            i+=2;
           }
         }
         else if(command[i]!='\"')
           complete_argument+=command[i];
         i++;
       }
-      arguments.push_back(complete_argument);
-      complete_argument="";
+      // arguments.push_back(complete_argument);
+      // complete_argument="";
     }
     else if(c=='\''){
       i++;
@@ -157,8 +153,8 @@ vector<string> parse_command_to_string_vector(string command)
           complete_argument+=command[i];
         i++;
       }
-      arguments.push_back(complete_argument);
-      complete_argument="";
+      // arguments.push_back(complete_argument);
+      // complete_argument="";
     }
     else if(c=='\\'){
       i++;
