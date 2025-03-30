@@ -5,7 +5,6 @@
 #include <filesystem>
 #include <fstream>
 #include <unistd.h>
-#include <conio.h>
 #include <termios.h>
 using namespace std;
 
