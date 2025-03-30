@@ -313,6 +313,8 @@ void handleTabPress(string &input)
   }else if(input == "typ"){
     input = "type ";
     cout<<"t ";
+  }else{
+    cout<<"\a";
   }
 }
 
