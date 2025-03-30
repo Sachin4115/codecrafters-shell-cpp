@@ -6,6 +6,7 @@
 #include <fstream>
 #include <unistd.h>
 #include <conio.h>
+#include <termios.h>
 using namespace std;
 
 string WORKING_DIR = filesystem::current_path().string();
@@ -289,6 +290,19 @@ string find_command_in_path(string command, string path)
   return "";
 }
 
+void enableRawMode() {
+  termios term;
+  tcgetattr(STDIN_FILENO, &term);
+  term.c_lflag &= ~(ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+void disableRawMode() {
+  termios term;
+  tcgetattr(STDIN_FILENO, &term);
+  term.c_lflag |= (ICANON | ECHO);
+  tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 void handleTabPress(string &input)
 {
   if(input=="ech"){
@@ -302,22 +316,24 @@ void handleTabPress(string &input)
 
 void readInputWithTab(string &input)
 {
-  // enableRawMode();
-  string s;
+  enableRawMode();
   char c;
-  int asciiVal;
-  while(true){
-    c=getch();
-    asciiVal = c;
-    if(asciiVal == 13){
-      cout<<endl;
+  while (true) {
+    c = getchar();
+    if (c == '\n') {
+      cout << endl;
       break;
-    }else if(asciiVal == 9){
-      handleTabPress(s);
-    }else{
-      s+=c;
-      cout<<c;
+    } else if (c == '\t') {
+      handleTabPress(input);
+    } else if (c == 127) {
+      if (!input.empty()) {
+        input.pop_back();
+        cout << "\b \b";
+      }
+    } else {
+      input += c;
+      cout << c;
     }
   }
-  // disableRawMode();
+  disableRawMode();
 }
