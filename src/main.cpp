@@ -1,5 +1,5 @@
 #include <iostream>
-#include <set>
+#include <unordered_set>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
@@ -33,9 +33,7 @@ void handleTabPress(string &input);
 void readInputWithTab(string &input);
 unordered_set<string> getExternalCommands();
 
-vector<string> builtin_commands = {"exit","echo","type"};
-unordered_set<string> commands =  getExternalCommands();
-commands.insert(builtin_commands.begin(),builtin_commands.end());
+unordered_set<string> commands;
 
 int main() {
   // Flush after every cout / std:cerr
@@ -43,6 +41,10 @@ int main() {
   cerr << unitbuf;
 
   while(true){
+    vector<string> builtin_commands = {"exit","echo","type"};
+    commands =  getExternalCommands();
+    commands.insert(builtin_commands.begin(),builtin_commands.end());
+
     cout << "$ ";
 
     string input;
