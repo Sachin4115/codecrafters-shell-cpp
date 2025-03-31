@@ -400,7 +400,7 @@ void readInputWithTab(string &input)
     c = getchar();
     helpReadInputWithTab(input,c);
     if (c == '\n') {
-      cout << endl;
+      // cout << endl;
       return;
     }
   }
