@@ -329,18 +329,24 @@ unordered_set<string> getExternalCommands()
 
 char handleTabPress(string &input)
 {
-  auto matches = commands | views::filter([&input](const string& cmd) {
-    return cmd.starts_with(input);
-  });
+  // auto matches = commands | views::filter([&input](const string& cmd) {
+  //   return cmd.starts_with(input);
+  // });
+  set<string> matches;
+  for(string c : commands){
+    if(input== c.substr(0,input.length())){
+      matches.insert(c);
+    }
+  }
   if (matches.empty()) {
     cout << '\a';
   }
-  if (ranges::distance(matches) == 1) {
+  if (matches.size() == 1) {
     while (!input.empty()) {
       cout << "\b \b";
       input.pop_back();
     }
-    input = matches.front() + ' ';
+    input = *matches.begin() + ' ';
     cout << input;
   }
   else{
@@ -356,9 +362,9 @@ char handleTabPress(string &input)
   //   //   res.insert(match);
   //   // }
   //   // for(string rs:res) cout<<rs<<"  ";
-  //   for(const auto& match:matches){
-  //     cout<<match<<"  ";
-  //   }
+    // for(const auto& match:matches){
+    //   cout<<match<<"  ";
+    // }
     cout<<endl;
     cout<<"$ ";
     cout<<input;
