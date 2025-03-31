@@ -346,7 +346,7 @@ char handleTabPress(string &input)
       cout << "\b \b";
       input.pop_back();
     }
-    input = *matches.begin() + ' ';
+    input = *matches.begin() + " ";
     cout << input;
   }
   else{
@@ -362,9 +362,9 @@ char handleTabPress(string &input)
   //   //   res.insert(match);
   //   // }
   //   // for(string rs:res) cout<<rs<<"  ";
-    for(const auto& match:matches){
-      cout<<match<<"  ";
-    }
+    // for(const auto& match:matches){
+    //   cout<<match<<"  ";
+    // }
     cout<<endl;
     cout<<"$ ";
     cout<<input;
@@ -374,10 +374,7 @@ char handleTabPress(string &input)
 
 
 void helpReadInputWithTab(string &input,char c){
-  if (c == '\n') {
-    cout << endl;
-    return;
-  } else if (c == '\t') {
+   if (c == '\t') {
     char r = handleTabPress(input);
     if(r=='$') return;
     helpReadInputWithTab(input,r);
@@ -398,6 +395,10 @@ void readInputWithTab(string &input)
   char c;
   while (true) {
     c = getchar();
+    if (c == '\n') {
+      cout << endl;
+      return;
+    }
     helpReadInputWithTab(input,c);
   }
   disableRawMode();
