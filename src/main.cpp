@@ -399,10 +399,10 @@ void readInputWithTab(string &input)
   while (true) {
     c = getchar();
     helpReadInputWithTab(input,c);
-    if (c == '\n') {
-      cout << endl;
-      return;
-    }
+    // if (c == '\n') {
+    //   cout << endl;
+    //   return;
+    // }
   }
   disableRawMode();
 }
