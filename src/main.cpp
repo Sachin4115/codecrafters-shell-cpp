@@ -362,9 +362,9 @@ char handleTabPress(string &input)
   //   //   res.insert(match);
   //   // }
   //   // for(string rs:res) cout<<rs<<"  ";
-    // for(const auto& match:matches){
-    //   cout<<match<<"  ";
-    // }
+    for(const auto& match:matches){
+      cout<<match<<"  ";
+    }
     cout<<endl;
     cout<<"$ ";
     cout<<input;
@@ -399,10 +399,10 @@ void readInputWithTab(string &input)
   while (true) {
     c = getchar();
     helpReadInputWithTab(input,c);
-    // if (c == '\n') {
-    //   cout << endl;
-    //   return;
-    // }
+    if (c == '\n') {
+      cout << endl;
+      return;
+    }
   }
   disableRawMode();
 }
