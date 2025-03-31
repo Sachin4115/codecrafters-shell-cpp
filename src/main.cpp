@@ -327,7 +327,30 @@ unordered_set<string> getExternalCommands()
   return commands;
 }
 
-char handleTabPress(string &input)
+string find_common_prefix(const set<string>& matches) {
+  if (matches.empty()) return "";
+  if (matches.size() == 1) return *matches.begin();
+  const string& first = *matches.begin();
+  size_t min_len = first.length();
+  for (const auto& str : matches) {
+      min_len = min(min_len, str.length());
+  }
+
+  string result;
+  for (size_t i = 0; i < min_len; i++) {
+      char current = first[i];
+      for (const auto& str : matches) {
+          if (str[i] != current) {
+              return result;
+          }
+      }
+      result += current;
+  }
+
+  return result;
+}
+
+char handleTabPress(string &input,bool b)
 {
   // auto matches = commands | views::filter([&input](const string& cmd) {
   //   return cmd.starts_with(input);
@@ -349,19 +372,27 @@ char handleTabPress(string &input)
     input = *matches.begin() + " ";
     cout << input;
   }
-  else{
-    cout << '\a';
-    enableRawMode();
-    char c;
-    c = getchar();
-    disableRawMode();
-    if(c!='\t') return c;
+  else if(!b){
+    string common = find_common_prefix(matches);
+    if(common.length()>input.length()){
+      while (!input.empty()) {
+        cout << "\b \b";
+        input.pop_back();
+      }
+      input = common;
+      cout << input;
+    }
+    else{
+      cout << '\a';
+      enableRawMode();
+      char c;
+      c = getchar();
+      disableRawMode();
+      if(c!='\t') return c;
+      return handleTabPress(input,1);
+    }
+  }else{
     cout<<endl;
-  //   // set<string>res(matches.begin(),matches.end());
-  //   // for(const auto& match:matches){
-  //   //   res.insert(match);
-  //   // }
-  //   // for(string rs:res) cout<<rs<<"  ";
     for(const auto& match:matches){
       cout<<match<<"  ";
     }
@@ -378,7 +409,7 @@ void helpReadInputWithTab(string &input,char c){
     cout << endl;
     return;
   } else if (c == '\t') {
-    char r = handleTabPress(input);
+    char r = handleTabPress(input,0);
     if(r=='$') return;
     helpReadInputWithTab(input,r);
   } else if (c == 127) {
