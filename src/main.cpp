@@ -374,7 +374,10 @@ char handleTabPress(string &input)
 
 
 void helpReadInputWithTab(string &input,char c){
-   if (c == '\t') {
+  if (c == '\n') {
+    cout << endl;
+    return;
+  } else if (c == '\t') {
     char r = handleTabPress(input);
     if(r=='$') return;
     helpReadInputWithTab(input,r);
@@ -395,11 +398,11 @@ void readInputWithTab(string &input)
   char c;
   while (true) {
     c = getchar();
+    helpReadInputWithTab(input,c);
     if (c == '\n') {
       cout << endl;
       return;
     }
-    helpReadInputWithTab(input,c);
   }
   disableRawMode();
 }
