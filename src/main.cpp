@@ -362,9 +362,9 @@ char handleTabPress(string &input)
   //   //   res.insert(match);
   //   // }
   //   // for(string rs:res) cout<<rs<<"  ";
-    // for(const auto& match:matches){
-    //   cout<<match<<"  ";
-    // }
+    for(const auto& match:matches){
+      cout<<match<<"  ";
+    }
     cout<<endl;
     cout<<"$ ";
     cout<<input;
