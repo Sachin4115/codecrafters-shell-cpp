@@ -383,99 +383,99 @@ vector<string> parse_command_to_string_vector(string command)
     return arguments;
 }
 
-string find_common_prefix(const unordered_set<string>& matches) {
-  if (matches.empty()) return "";
-  if (matches.size() == 1) return *matches.begin();
-  const string& first = *matches.begin();
-  size_t min_len = first.length();
-  for (const auto& str : matches) {
-      min_len = min(min_len, str.length());
-  }
+// string find_common_prefix(const unordered_set<string>& matches) {
+//   if (matches.empty()) return "";
+//   if (matches.size() == 1) return *matches.begin();
+//   const string& first = *matches.begin();
+//   size_t min_len = first.length();
+//   for (const auto& str : matches) {
+//       min_len = min(min_len, str.length());
+//   }
 
-  string result;
-  for (size_t i = 0; i < min_len; i++) {
-      char current = first[i];
-      for (const auto& str : matches) {
-          if (str[i] != current) {
-              return result;
-          }
-      }
-      result += current;
-  }
+//   string result;
+//   for (size_t i = 0; i < min_len; i++) {
+//       char current = first[i];
+//       for (const auto& str : matches) {
+//           if (str[i] != current) {
+//               return result;
+//           }
+//       }
+//       result += current;
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
-char handleTabPress(string &input,bool b)
-{
-  // auto matches = commands | views::filter([&input](const string& cmd) {
-  //   return cmd.starts_with(input);
-  // });
-  unordered_set<string> matches;
-  for(string c : commands){
-    if(input== c.substr(0,input.length())){
-      matches.insert(c);
-    }
-  }
-  if (matches.empty()) {
-    cout << '\a';
-  }
-  if (matches.size() == 1) {
-    while (!input.empty()) {
-      cout << "\b \b";
-      input.pop_back();
-    }
-    input = *matches.begin() + " ";
-    cout << input;
-  }
-  else if(!b){
-    string common = find_common_prefix(matches);
-    if(common.length()>input.length()){
-      while (!input.empty()) {
-        cout << "\b \b";
-        input.pop_back();
-      }
-      input = common;
-      cout << input;
-    }
-    else{
-      cout << '\a';
-      char c;
-    //   c = getch();
-      if(static_cast<int>(c) == 9) return c;
-      return handleTabPress(input,1);
-    }
-  }else{
-    cout<<endl;
-    for(const auto& match:matches){
-      cout<<match<<"  ";
-    }
-    cout<<endl;
-    cout<<"$ ";
-    cout<<input;
-  }
-  return '$';
-}
+// char handleTabPress(string &input,bool b)
+// {
+//   // auto matches = commands | views::filter([&input](const string& cmd) {
+//   //   return cmd.starts_with(input);
+//   // });
+//   unordered_set<string> matches;
+//   for(string c : commands){
+//     if(input== c.substr(0,input.length())){
+//       matches.insert(c);
+//     }
+//   }
+//   if (matches.empty()) {
+//     cout << '\a';
+//   }
+//   if (matches.size() == 1) {
+//     while (!input.empty()) {
+//       cout << "\b \b";
+//       input.pop_back();
+//     }
+//     input = *matches.begin() + " ";
+//     cout << input;
+//   }
+//   else if(!b){
+//     string common = find_common_prefix(matches);
+//     if(common.length()>input.length()){
+//       while (!input.empty()) {
+//         cout << "\b \b";
+//         input.pop_back();
+//       }
+//       input = common;
+//       cout << input;
+//     }
+//     else{
+//       cout << '\a';
+//       char c;
+//     //   c = getch();
+//       if(static_cast<int>(c) == 9) return c;
+//       return handleTabPress(input,1);
+//     }
+//   }else{
+//     cout<<endl;
+//     for(const auto& match:matches){
+//       cout<<match<<"  ";
+//     }
+//     cout<<endl;
+//     cout<<"$ ";
+//     cout<<input;
+//   }
+//   return '$';
+// }
 
 
-void helpReadInputWithTab(string &input,char c){
-  if (static_cast<int>(c) == 13) {
-    cout << endl;
-    return;
-  } else if (static_cast<int>(c) == 9) {
-    char r = handleTabPress(input,0);
-    if(r=='$') return;
-    helpReadInputWithTab(input,r);
-  } else if (static_cast<int>(c) == 8) {
-    if (!input.empty()) {
-      input.pop_back();
-      cout << "\b \b";
-    }
-  } else {
-    input += c;
-    cout << c;
-  }
-}
+// void helpReadInputWithTab(string &input,char c){
+//   if (static_cast<int>(c) == 13) {
+//     cout << endl;
+//     return;
+//   } else if (static_cast<int>(c) == 9) {
+//     char r = handleTabPress(input,0);
+//     if(r=='$') return;
+//     helpReadInputWithTab(input,r);
+//   } else if (static_cast<int>(c) == 8) {
+//     if (!input.empty()) {
+//       input.pop_back();
+//       cout << "\b \b";
+//     }
+//   } else {
+//     input += c;
+//     cout << c;
+//   }
+// }
 
 // void readInputWithTab(string &input)
 // {
