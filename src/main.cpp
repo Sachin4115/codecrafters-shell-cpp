@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <unistd.h>
 // #include <io.h>
-#include <conio.h>
+// #include <conio.h>
 using namespace std;
 
 enum CommandType
@@ -49,8 +49,8 @@ int main()
         cout << "$ ";
 
         string input;
-        // getline(cin, input);
-        readInputWithTab(input);
+        getline(cin, input);
+        // readInputWithTab(input);
 
         vector<string> command_vector = parse_command_to_string_vector(input);
 
@@ -441,7 +441,7 @@ char handleTabPress(string &input,bool b)
     else{
       cout << '\a';
       char c;
-      c = getch();
+    //   c = getch();
       if(static_cast<int>(c) == 9) return c;
       return handleTabPress(input,1);
     }
@@ -477,17 +477,17 @@ void helpReadInputWithTab(string &input,char c){
   }
 }
 
-void readInputWithTab(string &input)
-{
-  char c;
-  while (true) {
-    if(_kbhit()){
-        c = _getch();
-        helpReadInputWithTab(input,c);
-        if (static_cast<int>(c) == 13) {
-            // cout << endl;
-            return;
-        }
-    }
-  }
-}
+// void readInputWithTab(string &input)
+// {
+//   char c;
+//   while (true) {
+//     if(_kbhit()){
+//         c = _getch();
+//         helpReadInputWithTab(input,c);
+//         if (static_cast<int>(c) == 13) {
+//             // cout << endl;
+//             return;
+//         }
+//     }
+//   }
+// }
